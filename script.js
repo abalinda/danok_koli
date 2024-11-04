@@ -196,28 +196,53 @@ function initCalculator() {
 // Update the displayResult function
 function displayResult() {
     const resultData = JSON.parse(localStorage.getItem('resultData'));
+    console.log('Retrieved resultData:', resultData);
+
     if (!resultData) {
+        console.log('No result data found in localStorage');
         alert("Нема податоци за приказ.");
         window.location.href = 'calculator.html';
         return;
     }
 
-    // Update exchange rate with animation
-    const rateElement = document.getElementById('dneven_kurs');
-    rateElement.textContent = resultData.dneven_kurs;
-    rateElement.parentElement.classList.add('updated');
-    
-    // Remove animation class after it completes
-    setTimeout(() => {
-        rateElement.parentElement.classList.remove('updated');
-    }, 500);
+    try {
+        // Update exchange rate with animation
+        const rateElement = document.getElementById('dneven_kurs');
+        if (!rateElement) {
+            console.error('Rate element not found');
+            return;
+        }
+        
+        rateElement.textContent = resultData.dneven_kurs;
+        rateElement.parentElement.classList.add('updated');
+        
+        // Remove animation class after it completes
+        setTimeout(() => {
+            rateElement.parentElement.classList.remove('updated');
+        }, 500);
 
-    // Rest of your display updates...
-    document.getElementById('konecna').textContent = formatNumber(resultData.konecna) + " €";
-    document.getElementById('car_value').textContent = resultData.car_value + " €";
-    document.getElementById('transportation_cost').textContent = resultData.transportation_cost + " €";
-    document.getElementById('co2_emissions').textContent = resultData.co2_emissions + " g/km";
-    document.getElementById('fuel_type').textContent = resultData.fuel_type;
+        // Add null checks for all elements
+        const elements = {
+            'konecna': resultData.konecna + " €",
+            'car_value': resultData.car_value + " €",
+            'transportation_cost': resultData.transportation_cost + " €",
+            'co2_emissions': resultData.co2_emissions + " g/km",
+            'fuel_type': resultData.fuel_type
+        };
+
+        for (const [id, value] of Object.entries(elements)) {
+            const element = document.getElementById(id);
+            if (element) {
+                element.textContent = value;
+            } else {
+                console.error(`Element with id '${id}' not found`);
+            }
+        }
+    } catch (error) {
+        console.error('Error in displayResult:', error);
+        alert("Грешка при прикажување на резултатите.");
+        window.location.href = 'calculator.html';
+    }
 }
 
 // Initialize everything when the DOM is loaded
