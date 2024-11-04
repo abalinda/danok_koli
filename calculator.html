@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="mk">
+
+<head>
+    <meta charset="UTF-8">
+    
+    <link rel="icon" type="image/png" href="favicon.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Калкулатор за пресметување на данок (ДДВ + ДМВ)</title>
+    <script src="script.js"></script>
+    <style>
+        body {
+            background-color: #f0f8ff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            position: relative;
+        }
+
+        .exchange-rate {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: #ffffff;
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            font-size: 0.9em;
+            color: rgba(0, 0, 0, 0.6);
+        }
+
+        .container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 500px;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        h1 {
+            color: #333333;
+            margin-bottom: 30px;
+        }
+
+        label {
+            display: block;
+            margin: 10px 0 5px;
+            text-align: left;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0 15px;
+            border: 1px solid #cccccc;
+            border-radius: 5px;
+            font-family: Arial, sans-serif;
+            font-size: 1em;
+        }
+
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            font-family: Arial, sans-serif;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        .back-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            padding: 10px 15px;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 1em;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease;
+        }
+
+        .button {
+            display: inline-block;
+            margin-top: 25px;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 1em;
+            font-family: Arial, sans-serif;
+            cursor: pointer;
+            min-width: 150px;
+        }
+
+        .button:hover {
+            background-color: #45a049;
+        }
+
+        .watermark {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            font-size: 0.8em;
+            color: rgba(0, 0, 0, 0.5);
+        }
+
+        .watermark a {
+            color: rgba(0, 0, 0, 0.5);
+            text-decoration: none;
+        }
+
+        .watermark a:hover {
+            color: rgba(0, 0, 0, 0.7);
+        }
+
+        .fuel-type-container {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin: 25px 0;
+        }
+
+        .radio-group {
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .radio-group:hover {
+            background-color: #e8e8e8;
+        }
+
+        .radio-group input[type="radio"] {
+            appearance: none;
+            -webkit-appearance: none;
+            width: 24px;
+            height: 24px;
+            border: 2px solid #4CAF50;
+            border-radius: 50%;
+            margin: 0;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.2s ease;
+        }
+
+        .radio-group input[type="radio"]:checked {
+            background-color: #4CAF50;
+            border-color: #4CAF50;
+        }
+
+        .radio-group input[type="radio"]:checked::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 12px;
+            height: 12px;
+            background-color: white;
+            border-radius: 50%;
+        }
+
+        .radio-group label {
+            font-size: 1.1em;
+            color: #333;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+                margin: 10px;
+                width: 90%;
+            }
+
+            .fuel-type-container {
+                flex-direction: column;
+                gap: 15px;
+                align-items: center;
+            }
+
+            .radio-group {
+                width: 80%;
+                justify-content: center;
+                margin: 0 auto;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <a href="index.html" class="back-button">Назад до главна</a>
+
+    <div class="container">
+        <h1>Пресметување на данок (ДДВ + ДМВ)</h1>
+        <form id="tax-form">
+            <label for="car_value">Вредност на колата/каталошка вредност (во евра):</label>
+            <input type="text" id="car_value" name="car_value" class="numeric-input" required><br><br>
+
+            <label for="transportation_cost">Цена на превозот до Македонија (во евра):</label>
+            <input type="text" id="transportation_cost" name="transportation_cost" class="numeric-input" required><br><br>
+
+            <label for="co2_emissions">Емисија на CO2 (WLTP):</label>
+            <input type="text" id="co2_emissions" name="co2_emissions" class="numeric-input" required><br><br>
+
+            <!-- Fuel Type Buttons -->
+            <div class="fuel-type-container">
+                <div class="radio-group">
+                    <input type="radio" id="benzin" name="fuel_type" value="Бензин" required checked>
+                    <label for="benzin">Бензин</label>
+                </div>
+                <div class="radio-group">
+                    <input type="radio" id="dizel" name="fuel_type" value="Дизел" required>
+                    <label for="dizel">Дизел</label>
+                </div>
+            </div>
+
+            <button type="submit" class="button">Пресметај</button>
+        </form>
+    </div>
+    <div class="watermark">
+        <a href="https://github.com/abalinda" target="_blank">
+            &copy; 2024 github<sup>&trade;</sup>
+        </a>
+    </div>
+    <!-- JavaScript for formatting numbers with commas -->
+    <script src="app.js"></script>
+    <script>
+        // Function to add commas as thousand separators
+        function addCommas(number) {
+            return number.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        }
+
+        // Function to remove commas
+        function removeCommas(number) {
+            return number.replace(/,/g, "");
+        }
+
+        // Attach event listeners to all inputs with class 'numeric-input'
+        document.querySelectorAll('.numeric-input').forEach(function (input) {
+            input.addEventListener('input', function (e) {
+                // Remove all non-digit characters except comma
+                let value = e.target.value.replace(/[^0-9,]/g, '');
+
+                // Split by comma in case user types comma manually
+                let parts = value.split(',');
+
+                // Remove all commas for processing
+                let pureNumber = parts.join('');
+
+                // Add commas as thousand separators
+                if (pureNumber.length > 3) {
+                    pureNumber = addCommas(pureNumber);
+                }
+
+                e.target.value = pureNumber;
+            });
+        });
+
+        // Update form submission handling
+        document.getElementById('tax-form').addEventListener('submit', function (e) {
+            e.preventDefault(); // Prevent default form submission
+
+            // Remove commas from inputs
+            document.querySelectorAll('.numeric-input').forEach(function (input) {
+                input.value = removeCommas(input.value);
+            });
+
+            // Get form values
+            const carValue = document.getElementById('car_value').value;
+            const transportationCost = document.getElementById('transportation_cost').value;
+            const co2Emissions = document.getElementById('co2_emissions').value;
+            const fuelType = document.querySelector('input[name="fuel_type"]:checked').value;
+
+            // Redirect to results page with query parameters
+            window.location.href = `result.html?carValue=${carValue}&transportationCost=${transportationCost}&co2Emissions=${co2Emissions}&fuelType=${fuelType}`;
+        });
+    </script>
+</body>
+
+</html>
