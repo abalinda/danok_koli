@@ -123,11 +123,8 @@ function calculateDMV(carValue, co2Emissions, fuelType, exchangeRate) {
     }
 
     const dmv = (carValue * taxRate) * exchangeRate + (co2Emissions * co2Coefficient);
-    const co2Tax = co2Emissions * co2Coefficient;
-    const cenaNaDMV = dmv + co2Tax;
-    console.log(`Total Cost (DMV + CO2 Tax): ${cenaNaDMV}`);
 
-    return cenaNaDMV;
+    return dmv;
 }
 
 // Calculate DDV
