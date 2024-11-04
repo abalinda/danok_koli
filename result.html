@@ -230,6 +230,125 @@
                 display: none;  /* This will hide the exchange rate box on mobile */
             }
         }
+
+        .donation-section {
+            margin: 30px auto;
+            padding: 25px;
+            background: linear-gradient(145deg, #ffffff, #f8f8f8);
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            max-width: 90%;
+        }
+
+        .donation-section h3 {
+            color: #2c3e50;
+            font-size: 1.3em;
+            margin-bottom: 10px;
+        }
+
+        .donation-section p {
+            color: #666;
+            font-size: 1em;
+            margin-bottom: 20px;
+        }
+
+        .crypto-donations {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            max-width: 600px;
+        }
+
+        .crypto-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 12px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            transition: all 0.2s;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .crypto-item:hover {
+            transform: translateY(-2px);
+            background-color: #f0f0f0;
+        }
+
+        .copy-icon {
+            position: absolute;
+            right: 15px;
+            color: #666;
+            font-size: 1.2em;
+            opacity: 0.7;
+            transition: opacity 0.2s;
+        }
+
+        .crypto-item:hover .copy-icon {
+            opacity: 1;
+        }
+
+        .crypto-icon {
+            width: 30px;
+            height: 30px;
+            object-fit: contain;
+        }
+
+        .crypto-details {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .crypto-label {
+            font-weight: 600;
+            color: #2c3e50;
+            font-size: 0.9em;
+        }
+
+        .crypto-address {
+            font-family: monospace;
+            background-color: #fff;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 0.85em;
+            color: #666;
+            word-break: break-all;
+            position: relative;
+        }
+
+        .crypto-address.copied::after {
+            content: "Копирано!";
+            position: absolute;
+            right: -80px;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: #4CAF50;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8em;
+            animation: fadeOut 1.5s forwards;
+        }
+
+        @keyframes fadeOut {
+            0% { opacity: 1; }
+            70% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+
+        @media (max-width: 768px) {
+            .crypto-item {
+                flex-direction: column;
+                text-align: center;
+                padding-right: 40px;
+            }
+            
+            .crypto-details {
+                align-items: center;
+            }
+        }
     </style>
 </head>
 
@@ -254,6 +373,29 @@
             <div class="final-price-label">Вкупна сума за плаќање:</div>
             <div class="final-price-amount" id="konecna">€</div>
             <div class="final-price-label">со вклучен ДДВ</div>
+        </div>
+
+        <div class="donation-section">
+            <h3>Поддржете го нашиот труд</h3>
+            <p>Помогнете ни да продолжиме да создаваме корисни алатки за нашата заедница.</p>
+            <div class="crypto-donations">
+                <div class="crypto-item" onclick="copyToClipboard('btc-address')">
+                    <img src="https://cryptologos.cc/logos/bitcoin-btc-logo.png" alt="Bitcoin" class="crypto-icon">
+                    <div class="crypto-details">
+                        <span class="crypto-label">Bitcoin (BTC):</span>
+                        <code class="crypto-address" id="btc-address">bc1qcmh94edd25jac28jatxmhsgfptf82jtaktvwnt</code>
+                    </div>
+                    <span class="copy-icon">📋</span>
+                </div>
+                <div class="crypto-item" onclick="copyToClipboard('usdt-address')">
+                    <img src="https://cryptologos.cc/logos/tether-usdt-logo.png" alt="USDT" class="crypto-icon">
+                    <div class="crypto-details">
+                        <span class="crypto-label">Tether USD (USDT):</span>
+                        <code class="crypto-address" id="usdt-address">TKDfDsAgrdSy2JUMS29y2zwyXFyJCB4QZd</code>
+                    </div>
+                    <span class="copy-icon">📋</span>
+                </div>
+            </div>
         </div>
 
         <div class="section">
@@ -301,6 +443,23 @@
         </a>
     </div>
     <script src="app.js"></script>
+    <script>
+        function copyToClipboard(elementId) {
+            const element = document.getElementById(elementId);
+            const text = element.textContent;
+            
+            navigator.clipboard.writeText(text).then(() => {
+                element.classList.add('copied');
+                
+                // Remove the 'copied' class after animation
+                setTimeout(() => {
+                    element.classList.remove('copied');
+                }, 1500);
+            }).catch(err => {
+                console.error('Failed to copy text: ', err);
+            });
+        }
+    </script>
 </body>
 
 </html>

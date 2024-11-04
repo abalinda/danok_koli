@@ -21,6 +21,14 @@
 
     <link rel="icon" type="image/png" href="favicon.png">
     <title>Добредојдовте на Калкулаторот за Данок</title>
+
+    <!-- Counter.dev tracking code -->
+    <script src="https://cdn.counter.dev/script.js" data-id="f903f7f4-d44f-49b5-9dec-2bd9d640c2ad" data-utcoffset="1"></script>
+
+    <script>
+        if(!sessionStorage.getItem("_swa")&&document.referrer.indexOf(location.protocol+"//"+location.host)!== 0){fetch("https://counter.dev/track?"+new URLSearchParams({referrer:document.referrer,screen:screen.width+"x"+screen.height,user:"your-username",utcoffset:"1"}))};sessionStorage.setItem("_swa","1");
+    </script>
+
     <style>
         :root {
             --primary-color: #4CAF50;
@@ -202,6 +210,10 @@
         </div>
 
         <a href="calculator.html" class="button">Калкулатор</a>
+        
+        <div class="visitor-count" style="text-align: center; margin-top: 20px; font-size: 0.9em; color: #666;">
+            Посетители: <span id="visits">0</span>
+        </div>
     </div>
     
     <div class="watermark">
