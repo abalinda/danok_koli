@@ -1,225 +1,282 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="mk">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#0B1120" />
+    <meta
+      name="description"
+      content="Калкулатор за пресметка на данок (ДДВ + ДМВ) при увоз на возила во Македонија | Kalkulator za presmetka na danok (DDV + DMV) pri uvoz na vozila vo Makedonija"
+    />
+    <meta
+      name="keywords"
+      content="данок, калкулатор, увоз, возила, Македонија, ДДВ, ДМВ, danok, kalkulator, uvoz, vozila, Makedonija, DDV, DMV, tax calculator, import, vehicles, Macedonia"
+    />
+    <meta name="author" content="abalinda" />
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Калкулатор за пресметка на данок (ДДВ + ДМВ) при увоз на возила во Македонија | Kalkulator za presmetka na danok (DDV + DMV) pri uvoz na vozila vo Makedonija">
-    <meta name="keywords" content="данок, калкулатор, увоз, возила, Македонија, ДДВ, ДМВ, danok, kalkulator, uvoz, vozila, Makedonija, DDV, DMV, tax calculator, import, vehicles, Macedonia">
-    <meta name="author" content="abalinda">
+    <meta
+      property="og:title"
+      content="Калкулатор за Данок при Увоз на Возила"
+    />
+    <meta
+      property="og:description"
+      content="Пресметајте данок (ДДВ + ДМВ) за увоз на возила во Македонија."
+    />
+    <meta
+      property="og:image"
+      content="https://abalinda.github.io/danok_koli/favicon.png"
+    />
+    <meta property="og:url" content="https://abalinda.github.io/danok_koli/" />
+    <meta property="og:type" content="website" />
 
-    <meta property="og:title" content="Tax Calculator for Vehicle Import | Tax Calculator for Vehicle Import">
-    <meta property="og:description" content="Calculate tax (DDV + DMV) for vehicle import in Macedonia | Calculate tax (DDV + DMV) for vehicle import in Macedonia">
-    <meta property="og:image" content="https://abalinda.github.io/danok_koli/favicon.png">
-    <meta property="og:url" content="https://abalinda.github.io/danok_koli/">
-    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="Калкулатор за Данок при Увоз на Возила"
+    />
+    <meta
+      name="twitter:description"
+      content="Пресметајте данок (ДДВ + ДМВ) за увоз на возила во Македонија."
+    />
+    <meta
+      name="twitter:image"
+      content="https://abalinda.github.io/danok_koli/favicon.png"
+    />
 
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Калкулатор за Данок при Увоз на Возила | Kalkulator za Danok pri Uvoz na Vozila">
-    <meta name="twitter:description" content="Пресметајте данок (ДДВ + ДМВ) за увоз на возила во Македонија | Presmetajte danok (DDV + DMV) za uvoz na vozila vo Makedonija">
-    <meta name="twitter:image" content="https://yourdomain.com/preview-image.png">
+    <link rel="icon" type="image/png" href="favicon.png" />
+    <title>Калкулатор за Данок при Увоз на Возила (ДДВ + ДМВ)</title>
 
-    <link rel="icon" type="image/png" href="favicon.png">
-    <title>Добредојдовте на Калкулаторот за Данок</title>
+    <link rel="stylesheet" href="styles.css?v=20260620" />
 
     <!-- Counter.dev tracking code -->
-    <script src="https://cdn.counter.dev/script.js" data-id="f903f7f4-d44f-49b5-9dec-2bd9d640c2ad" data-utcoffset="1"></script>
+    <script
+      src="https://cdn.counter.dev/script.js"
+      data-id="f903f7f4-d44f-49b5-9dec-2bd9d640c2ad"
+      data-utcoffset="1"
+    ></script>
+  </head>
 
-    <script>
-        if(!sessionStorage.getItem("_swa")&&document.referrer.indexOf(location.protocol+"//"+location.host)!== 0){fetch("https://counter.dev/track?"+new URLSearchParams({referrer:document.referrer,screen:screen.width+"x"+screen.height,user:"your-username",utcoffset:"1"}))};sessionStorage.setItem("_swa","1");
-    </script>
-
-    <style>
-        :root {
-            --primary-color: #4CAF50;
-            --primary-hover: #45a049;
-            --text-color: #333333;
-            --bg-color: #f0f8ff;
-            --card-bg: #ffffff;
-        }
-
-        body {
-            background-color: var(--bg-color);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            font-family: Arial, sans-serif;
-            position: relative;
-            padding: 20px;
-            box-sizing: border-box;
-        }
-
-        .container {
-            background-color: var(--card-bg);
-            padding: 2rem;
-            border-radius: 15px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            max-width: 800px;
-            margin: 0 auto;
-            box-sizing: border-box;
-        }
-
-        h1 {
-            color: var(--text-color);
-            font-size: 2rem;
-            margin-bottom: 1.5rem;
-            line-height: 1.2;
-        }
-
-        .intro-text {
-            font-size: 1.1rem;
-            color: var(--text-color);
-            margin-bottom: 2rem;
-            line-height: 1.5;
-        }
-
-        .notice-card {
-            background-color: #fff8e8;
-            border-left: 4px solid #ffd700;
-            padding: 1rem;
-            margin: 1rem 0;
-            border-radius: 4px;
-        }
-
-        .legal-notice {
-            font-size: 0.9rem;
-            background-color: #f5f5f5;
-            padding: 1rem;
-            border-radius: 4px;
-            margin: 1.5rem 0;
-        }
-
-        .button {
-            display: inline-block;
-            padding: 12px 24px;
-            background-color: var(--primary-color);
-            color: white;
-            text-decoration: none;
-            border-radius: 8px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            margin-top: 1.5rem;
-        }
-
-        .button:hover {
-            background-color: var(--primary-hover);
-            transform: translateY(-2px);
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-        }
-
-        .watermark {
-            position: fixed;
-            bottom: 10px;
-            right: 10px;
-            font-size: 0.9rem;
-            background-color: rgba(255, 255, 255, 0.9);
-            padding: 5px 10px;
-            border-radius: 4px;
-        }
-
-        .watermark a {
-            color: var(--text-color);
-            text-decoration: none;
-            display: inline;
-            padding: 0;
-            background-color: transparent;
-        }
-
-        @media (max-width: 768px) {
-            body {
-                padding: 10px;
-            }
-
-            .container {
-                padding: 1.5rem;
-                width: 100%;
-                box-shadow: none;
-            }
-
-            h1 {
-                font-size: 1.5rem;
-                text-align: center;
-            }
-
-            .intro-text {
-                text-align: center;
-            }
-
-            .notice-card, .legal-notice {
-                font-size: 0.9rem;
-            }
-
-            .disclaimer-container {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .disclaimer-item {
-                margin-bottom: 10px;
-            }
-        }
-
-        .disclaimer-container {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin: 15px 0;
-        }
-
-        .disclaimer-item a {
-            color: #007bff;
-            text-decoration: none;
-            font-size: 0.9em;
-        }
-
-        .disclaimer-item a:hover {
-            text-decoration: underline;
-        }
-    </style>
-</head>
-
-<body>
-    <div class="container">
-        <h1>Добредојдовте на Калкулаторот за Данок</h1>
-        
-        <p class="intro-text">
-            Овој калкулатор ви помага да пресметате данок (ДДВ + ДМВ) за увоз на возила во Македонија.
-        </p>
-
-        <div class="notice-card">
-            <p>Податоците добиени од калкулаторот се само проценка и за прецизна пресметка треба да се обратите до царина.</p>
-            <p>Ова е хоби проект и не преземам одговорност за можни грешки.</p>
+  <body>
+    <main class="page">
+      <header class="page__header">
+        <div>
+          <h1>Калкулатор за данок при увоз на возила</h1>
+          <p class="subtitle">
+            Приближна пресметка на <strong>ДДВ + ДМВ</strong> за увоз на возило
+            во Македонија.
+          </p>
         </div>
+      </header>
 
-        <div class="legal-disclaimer" style="text-align: center;">
-            <p>Пресметката е базиранa на:</p>
-            <div class="disclaimer-container" style="justify-content: center;">
-                <div class="disclaimer-item">
-                    <a href="https://www.customs.gov.mk/content/documents/%D0%90%D0%BA%D1%86%D0%B8%D0%B7%D0%B8/Uredba%20%D0%BC%D0%BE%D1%82%D0%BE%D1%80%D0%BD%D0%B8%20%D0%B2%D0%BE%D0%B7%D0%B8%D0%BB%D0%B0%20SLUZBEN%20VESNIK%20NA%20RSM%20br.%20220%20od%2019.10.2023.pdf" target="_blank">
-                        Уредба за изменување на данок (2023)
-                    </a>
-                </div>
-                <div class="disclaimer-item">
-                    <a href="https://customs.gov.mk/images/documents/motorniVozila/UredbaPresmetkaDMV.pdf" target="_blank">
-                        Уредба за пресметка на ДМВ (2019)
-                    </a>
-                </div>
+      <section class="card" aria-labelledby="form-title">
+        <h2 id="form-title" class="card__title">Внесете податоци</h2>
+
+        <form id="tax-form" novalidate>
+          <div class="field">
+            <label for="car_value"
+              >Вредност на возилото / каталошка вредност (€)</label
+            >
+            <input
+              type="text"
+              inputmode="numeric"
+              id="car_value"
+              name="car_value"
+              class="numeric-input"
+              placeholder="пр. 15,000"
+              autocomplete="off"
+              required
+            />
+          </div>
+
+          <div class="field">
+            <label for="transportation_cost">
+              Начин на транспорт до Македонија
+              <span
+                class="info"
+                tabindex="0"
+                title="Износите се приближна проценка на трошокот за транспорт."
+                >ⓘ</span
+              >
+            </label>
+            <select
+              id="transportation_cost"
+              name="transportation_cost"
+              required
+            >
+              <option value="drive">Возење на возилото (~300 €)</option>
+              <option value="tow">Шлеп / камион (~750 €)</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="co2_emissions">Емисија на CO₂ — WLTP (g/km)</label>
+            <input
+              type="text"
+              inputmode="numeric"
+              id="co2_emissions"
+              name="co2_emissions"
+              class="numeric-input"
+              placeholder="пр. 120"
+              autocomplete="off"
+              required
+            />
+          </div>
+
+          <fieldset class="field fuel">
+            <legend>Тип на гориво</legend>
+            <div class="fuel__options">
+              <label class="chip">
+                <input type="radio" name="fuel_type" value="benzin" checked />
+                <span>Бензин</span>
+              </label>
+              <label class="chip">
+                <input type="radio" name="fuel_type" value="dizel" />
+                <span>Дизел</span>
+              </label>
             </div>
+          </fieldset>
+
+          <p class="error" id="form-error" role="alert" hidden></p>
+
+          <button type="submit" class="btn btn--primary">Пресметај</button>
+        </form>
+      </section>
+
+      <section class="card result" id="result" hidden aria-live="polite">
+        <div class="headline">
+          <span class="headline__label"
+            >Износ за плаќање (над цената на возилото)</span
+          >
+          <span class="headline__amount" id="res-headline">€</span>
+          <span class="headline__note">транспорт + ДМВ + ДДВ (18%)</span>
         </div>
 
-        <a href="calculator.html" class="button">Калкулатор</a>
-        
-    </div>
-    
-    <div class="watermark">
-        <a href="https://github.com/abalinda/danok_koli" target="_blank">
-            &copy; 2024 github<sup>&trade;</sup>
-        </a>
-    </div>
-</body>
+        <h3 class="card__subtitle">Разбивка на пресметката</h3>
+        <ul class="breakdown">
+          <li>
+            <span>Вредност на возилото</span
+            ><strong id="res-car-value">€</strong>
+          </li>
+          <li>
+            <span>Трошоци за транспорт</span
+            ><strong id="res-transport">€</strong>
+          </li>
+          <li><span>Емисија на CO₂</span><strong id="res-co2">—</strong></li>
+          <li><span>Тип на гориво</span><strong id="res-fuel">—</strong></li>
+          <li>
+            <span>Процент на вредност (пВВ)</span
+            ><strong id="res-value-rate">—</strong>
+          </li>
+          <li>
+            <span>ДМВ (данок на моторно возило)</span
+            ><strong id="res-dmv">€</strong>
+          </li>
+          <li><span>ДДВ (18%)</span><strong id="res-vat">€</strong></li>
+          <li class="breakdown__total">
+            <span>Вкупна цена (со возилото)</span
+            ><strong id="res-total">€</strong>
+          </li>
+        </ul>
 
+        <details class="formula">
+          <summary>Формула за пресметка</summary>
+          <p class="formula__eq">
+            <strong>ДМВ = (ВМВ × пВВ) × СКД + CO₂ × кCO₂</strong>
+          </p>
+          <ul class="no-bullets">
+            <li><strong>ДМВ</strong> — данок на моторно возило (денари);</li>
+            <li><strong>ВМВ</strong> — вредност на возилото (евра);</li>
+            <li><strong>СКД</strong> — среден курс ЕУР/МКД (фиксно 61.5);</li>
+            <li>
+              <strong>пВВ</strong> — процент според вредноста на возилото;
+            </li>
+            <li><strong>CO₂</strong> — емисија на CO₂ на возилото;</li>
+            <li>
+              <strong>кCO₂</strong> — коефициент според граничните вредности на
+              CO₂ (изм. 2023).
+            </li>
+          </ul>
+        </details>
+      </section>
+
+      <section class="card donation">
+        <h3 class="card__subtitle">Поддржете го проектот</h3>
+        <p class="muted">
+          Ова е хоби проект. Доколку ви помогна, можете да донирате крипто.
+        </p>
+        <div class="crypto">
+          <button
+            type="button"
+            class="crypto__item"
+            data-copy="bc1qcmh94edd25jac28jatxmhsgfptf82jtaktvwnt"
+          >
+            <span class="crypto__label">Bitcoin (BTC)</span>
+            <code>bc1qcmh94edd25jac28jatxmhsgfptf82jtaktvwnt</code>
+            <span class="crypto__copy">📋</span>
+          </button>
+          <button
+            type="button"
+            class="crypto__item"
+            data-copy="TKDfDsAgrdSy2JUMS29y2zwyXFyJCB4QZd"
+          >
+            <span class="crypto__label">Tether USD (USDT)</span>
+            <code>TKDfDsAgrdSy2JUMS29y2zwyXFyJCB4QZd</code>
+            <span class="crypto__copy">📋</span>
+          </button>
+        </div>
+      </section>
+
+      <footer class="legal">
+        <p class="muted">
+          Пресметката е само проценка. За прецизна пресметка обратете се до
+          Царинската управа. Не преземам одговорност за можни грешки.
+        </p>
+        <p class="muted">Пресметката е базирана на:</p>
+        <div class="legal__links">
+          <a
+            href="https://www.customs.gov.mk/content/documents/%D0%90%D0%BA%D1%86%D0%B8%D0%B7%D0%B8/Uredba%20%D0%BC%D0%BE%D1%82%D0%BE%D1%80%D0%BD%D0%B8%20%D0%B2%D0%BE%D0%B7%D0%B8%D0%BB%D0%B0%20SLUZBEN%20VESNIK%20NA%20RSM%20br.%20220%20od%2019.10.2023.pdf"
+            target="_blank"
+            rel="noopener"
+            >Уредба за изменување (2023)</a
+          >
+          <a
+            href="https://customs.gov.mk/images/documents/motorniVozila/UredbaPresmetkaDMV.pdf"
+            target="_blank"
+            rel="noopener"
+            >Уредба за пресметка на ДМВ (2019)</a
+          >
+        </div>
+        <p class="watermark">
+          <a
+            href="https://github.com/abalinda/danok_koli"
+            target="_blank"
+            rel="noopener"
+            >© <span id="year"></span> @github<sup>™</sup></a
+          >
+        </p>
+      </footer>
+    </main>
+
+    <span class="toast" id="toast" hidden>Копирано!</span>
+
+    <script src="app.js?v=20260620"></script>
+    <script>
+      // Копирање на крипто адреси.
+      document.querySelectorAll(".crypto__item").forEach((btn) => {
+        btn.addEventListener("click", async () => {
+          try {
+            await navigator.clipboard.writeText(btn.dataset.copy);
+            const toast = document.getElementById("toast");
+            toast.hidden = false;
+            clearTimeout(window.__toastTimer);
+            window.__toastTimer = setTimeout(() => {
+              toast.hidden = true;
+            }, 1500);
+          } catch (e) {
+            console.error("Copy failed", e);
+          }
+        });
+      });
+    </script>
+  </body>
 </html>
